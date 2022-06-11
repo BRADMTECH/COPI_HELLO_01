@@ -1,28 +1,27 @@
 pipeline {
-  agent any
-    
-  tools {nodejs "Node v10.19.0"}
-    
-  stages {
-        
-     
-    stage('Build') {
-      steps {
-        sh 'npm install'
-      
-      }
-    }  
-    
-            
-    stage('Test') {
-      steps {
-        sh 'npm run test'
-      }
-    }
-    stage('Deploy'){
-        steps{
-            sh 'echo ===DEPLOY MOCK==='
+    agent {
+        docker {
+            image 'node:12.22.9'
+            args '-p 3000:3000'
         }
     }
-  }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh './jenkins/scripts/test.sh'
+            }
+        }
+        stage('Deliver') { 
+            steps {
+                sh './jenkins/scripts/deliver.sh' 
+                input message: 'Finished using the web site? (Click "Proceed" to continue)' 
+                sh './jenkins/scripts/kill.sh' 
+            }
+        }
+    }
 }
