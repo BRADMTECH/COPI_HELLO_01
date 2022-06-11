@@ -5,11 +5,6 @@ pipeline {
     
   stages {
         
-    stage('Git') {
-      steps {
-        git 'https://github.com/gus-sm/test-cicd.git'
-      }
-    }
      
     stage('Build') {
       steps {
@@ -24,9 +19,9 @@ pipeline {
         sh 'npm run test'
       }
     }
-    stage('Run'){
+    stage('Deploy'){
         steps{
-            sh 'npm run dev'
+            sh 'echo ===DEPLOY MOCK==='
         }
     }
   }
