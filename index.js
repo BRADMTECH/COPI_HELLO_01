@@ -4,5 +4,5 @@ app.set('view engine', 'ejs');
 
 app.use(routes);
 app.listen(3000, ()=>{
-	console.log('=D')
+	console.log('=D');
 });
