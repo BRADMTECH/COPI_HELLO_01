@@ -7,7 +7,7 @@ pipeline {
         
     stage('Git') {
       steps {
-        git 'https://github.com/gus-sm/test-cicd.git':
+        git 'https://github.com/gus-sm/test-cicd.git'
       }
     }
      
